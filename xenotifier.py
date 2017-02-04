@@ -26,6 +26,9 @@ TO = os.environ.get('XE_RECIPIENTS')
 soup = bs(requests.get(URL).content, 'lxml')
 houses = soup.findAll('div', class_='lazy r')
 houses_list = []
+if not os.path.exists('seen_houses.txt'):
+    f = open('seen_houses.txt', 'w')
+    f.close()
 
 with open('seen_houses.txt', 'ra+') as logfile:
     seen = logfile.read().splitlines()
