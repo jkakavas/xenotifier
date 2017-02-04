@@ -8,7 +8,7 @@ xenotifier.py is a script that polls xe.gr for new house ads and notifies via em
  * create a cronjob i.e.
 
    ```
-   00,30 * * * * cd /home/user/xe && /home/user/.virtualenvs/xenotifier/bin/python xenotifier.py > /dev/null 2>&1
+   00,30 * * * * cd /home/user/xe && env GMAIL_USERNAME='john_doe' GMAIL_PWD='hunter2' XE_RECIPIENTS='john@example.com, doe@example.com ' /home/user/.virtualenvs/xenotifier/bin/python xenotifier.py > /dev/null 2>&1
    ```
 
 
