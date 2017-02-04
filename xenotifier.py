@@ -12,8 +12,7 @@ import os
 #
 # URL απο το website της ΧΕ με οτι filters είναι αναγκαία
 #
-# Galatsi
-URL = 'http://www.xe.gr/property/search?System.item_type=re_residence&Transaction.type_channel=117541&Transaction.price.to=500&Item.area.from=70&Geo.area_id_new__hierarchy=82376,82375,82999,82998,83175,83178,83181,83174' # noqa
+URL = os.environ.get('XE_URL')
 
 # gmail username
 UNAME = os.environ.get('GMAIL_USERNAME')
@@ -62,17 +61,20 @@ for house in houses_list:
     """ % house
     body += house_str
 
-if houses_list and (UNAME and PWD and FROM and TO):
-    body = "Γειά ! \n" + body
-    msg = MIMEMultipart()
-    msg['From'] = FROM
-    msg['To'] = TO
-    msg['Subject'] = "Σπίτια απο Χρυσή ευκαιρία %s" % datetime.isoformat(
-        datetime.now()
-    )
-    msg.attach(MIMEText(body, 'plain'))
-    server = smtplib.SMTP('smtp.gmail.com:587')
-    server.starttls()
-    server.login(UNAME, PWD)
-    server.sendmail(FROM, TO.split(","), msg.as_string())
-    server.quit()
+if houses_list:
+    if UNAME and PWD and FROM and TO:
+        body = "Γειά ! \n" + body
+        msg = MIMEMultipart()
+        msg['From'] = FROM
+        msg['To'] = TO
+        msg['Subject'] = "Σπίτια απο Χρυσή ευκαιρία %s" % datetime.isoformat(
+            datetime.now()
+        )
+        msg.attach(MIMEText(body, 'plain'))
+        server = smtplib.SMTP('smtp.gmail.com:587')
+        server.starttls()
+        server.login(UNAME, PWD)
+        server.sendmail(FROM, TO.split(","), msg.as_string())
+        server.quit()
+    else:
+        print body
