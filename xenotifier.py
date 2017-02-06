@@ -29,8 +29,9 @@ houses_list = []
 if not os.path.exists('seen_houses.txt'):
     f = open('seen_houses.txt', 'w')
     f.close()
-
-with open('seen_houses.txt', 'ra+') as logfile:
+with open(
+    os.path.join(os.path.dirname(os.path.abspath(__file__)), 'seen_houses.txt'
+), 'ra+') as logfile:
     seen = logfile.read().splitlines()
     for house in houses:
         price = 'Not Available'
