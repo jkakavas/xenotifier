@@ -26,12 +26,14 @@ TO = os.environ.get('XE_RECIPIENTS')
 soup = bs(requests.get(URL).content, 'lxml')
 houses = soup.findAll('div', class_='lazy r')
 houses_list = []
-if not os.path.exists('seen_houses.txt'):
-    f = open('seen_houses.txt', 'w')
-    f.close()
+
 with open(
-    os.path.join(os.path.dirname(os.path.abspath(__file__)), 'seen_houses.txt'
-), 'ra+') as logfile:
+    os.path.join(
+        os.path.dirname(os.path.abspath(__file__)),
+        'seen_houses.txt'
+    ),
+    'ra+'
+) as logfile:
     seen = logfile.read().splitlines()
     for house in houses:
         price = 'Not Available'
